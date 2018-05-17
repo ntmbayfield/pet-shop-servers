@@ -69,7 +69,7 @@ describe('pets commandline tool', () => {
             'Command should produce a nonzero status code');
         }
 
-        const msg = 'Usage: node pets.js [read | create | update | destroy]\n';
+        const msg = 'Usage: node pets.js [create | read | update | destroy]\n';
 
         assert.strictEqual(stderr, msg);
         done();
