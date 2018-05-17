@@ -19,7 +19,7 @@ if ( allCrudOperations.indexOf(crudWord) > -1 ) {
       const name = process.argv[5];
 
       if ( Number.isNaN(age) || !kind || !name ) {
-        console.error(`Usage: ${node} ${fileName} ${crudWord} AGE, KIND, OR NAME INVALID`);
+        console.error(`Usage: ${node} ${fileName} ${crudWord} AGE KIND NAME`);
         process.exit(1);
       }
 
@@ -29,30 +29,32 @@ if ( allCrudOperations.indexOf(crudWord) > -1 ) {
 
       fs.writeFile(petsPath, petsJSON, (writeErr)=>{
         if (writeErr) {throw writeErr};
-        console.log("sucessful create operation! \n",pets);
+        console.log(pet);
       })
 
 
     } else if (crudWord === 'read' ) {
       const indexNeeded = Number.parseInt(process.argv[3]);
 
+      //handles base case for read
       if ( Number.isNaN(indexNeeded) ) {
-        console.log("all entries: \n",pets)
+        console.log(pets)
         process.exit();
       }
 
+      //handles invalid index
       if ( indexNeeded < 0 || indexNeeded >= pets.length ) {
-        console.error(`Usage: ${node} ${fileName} ${crudWord} INDEX INVALID`);
+        console.error(`Usage: ${node} ${fileName} ${crudWord} INDEX`);
         process.exit(1);
       }
 
-      console.log("successful read operation! \n",pets[indexNeeded]);
+      console.log(pets[indexNeeded]);
     } else if ( crudWord === 'update' ) {
       const indexNeeded = Number.parseInt(process.argv[3]);
 
       //handles invalid index
       if ( Number.isNaN(indexNeeded) || indexNeeded < 0 || indexNeeded >= pets.length ) {
-        console.error(`Usage: ${node} ${fileName} ${crudWord} INDEX INVALID`)
+        console.error(`Usage: ${node} ${fileName} ${crudWord} INDEX`)
         process.exit(1);
       }
 
@@ -62,7 +64,7 @@ if ( allCrudOperations.indexOf(crudWord) > -1 ) {
 
       //handles invalid age, kind, name
       if ( Number.isNaN(age) || !kind || !name ) {
-        console.error(`Usage: ${node} ${fileName} ${crudWord} AGE, KIND, OR NAME INVALID`)
+        console.error(`Usage: ${node} ${fileName} ${crudWord} AGE KIND NAME`)
         process.exit(1);
       }
 
@@ -76,14 +78,15 @@ if ( allCrudOperations.indexOf(crudWord) > -1 ) {
       fs.writeFile(petsPath, petsJSON, (writeErr)=>{
         if (writeErr) {throw writeErr};
 
-        console.log('successful update operation \n',pets);
+        console.log(pets);
       })
 
     } else if ( crudWord === 'destroy' ) {
       const indexNeeded = Number.parseInt(process.argv[3]);
 
+      //handles invalid index
       if ( Number.isNaN(indexNeeded) || indexNeeded < 0 || indexNeeded >= pets.length ) {
-        console.error(`Usage: ${node} ${fileName} ${crudWord} INDEX INVALID`)
+        console.error(`Usage: ${node} ${fileName} ${crudWord} INDEX`)
         process.exit(1);
       }
 
@@ -92,11 +95,11 @@ if ( allCrudOperations.indexOf(crudWord) > -1 ) {
 
       fs.writeFile(petsPath,petsJSON,(writeErr)=>{
         if (writeErr){ throw writeErr };
-        console.log('destroy operation successful \n',pets)
+        console.log(pets)
       })
     }
   })
 } else {
-  console.error(`Usage: ${node} ${fileName} CREATE, READ, UPDATE, AND DESTROY ONLY COMMANDS SUPPORTED`);
+  console.error(`Usage: ${node} ${fileName} [create | read | update | destroy]`);
   process.exit(1);
 }
