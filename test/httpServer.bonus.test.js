@@ -42,14 +42,14 @@ describe('pets bonus httpServer', () => {
       request(app)
         .get('/')
         .expect('Content-Type', /text\/plain/)
-        .expect(404, 'Not Found', done);
+        .expect(404, 'Not Found', done());
     });
 
     it('should return a 404 when resource doesn\'t exist', (done) => {
       request(app)
         .get('/blah')
         .expect('Content-Type', /text\/plain/)
-        .expect(404, 'Not Found', done);
+        .expect(404, 'Not Found', done());
     });
   });
 
