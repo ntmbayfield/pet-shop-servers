@@ -13,7 +13,7 @@ describe('pets httpServer', () => {
     const petsArr = [{
       age: 7,
       kind: 'rainbow',
-      name: 'Fido'
+      name: 'fido'
     }, {
       age: 5,
       kind: 'snake',
@@ -48,7 +48,7 @@ describe('pets httpServer', () => {
         .expect(200, [{
           age: 7,
           kind: 'rainbow',
-          name: 'Fido'
+          name: 'fido'
         }, {
           age: 5,
           kind: 'snake',
@@ -66,7 +66,7 @@ describe('pets httpServer', () => {
         .expect(200, {
           age: 7,
           kind: 'rainbow',
-          name: 'Fido'
+          name: 'fido'
         }, done);
     });
 
