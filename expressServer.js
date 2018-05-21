@@ -5,7 +5,11 @@ const petsPath = path.join(__dirname, 'pets.json');
 const express = require('express');
 const app = express();
 const port = process.env.PORT || 8000;
+const bodyParser = require('body-parser');
 
+app.use(bodyParser.json());
+
+//returns whole array
 app.get('/pets', (req,res,next)=>{
   fs.readFile(petsPath, 'utf8', (err, petsJSON)=>{
     if (err) { return next(err) };
@@ -16,6 +20,7 @@ app.get('/pets', (req,res,next)=>{
   })
 });
 
+//returns individual pets
 app.get('/pets/:id', (req,res,next)=>{
   fs.readFile(petsPath, 'utf8', (err, petsJSON)=>{
     if (err) { return next(err) };
@@ -30,17 +35,17 @@ app.get('/pets/:id', (req,res,next)=>{
   })
 })
 
+//adds pets to our "database"
 app.post('/pets', (req,res,next)=>{
   fs.readFile(petsPath, 'utf8', (readErr, petsJSON)=>{
     if (readErr) { return next(readErr) };
 
     const pets = JSON.parse(petsJSON);
-    console.log("req.body",req.body)
     const age = Number.parseInt(req.body.age);
     const { kind, name } = req.body;
 
     if ( Number.isNaN(age) || !kind || !name ) {
-      return res.sendStatus(404);
+      return res.sendStatus(400);
     }
 
     const pet = {age, kind, name};
@@ -54,6 +59,11 @@ app.post('/pets', (req,res,next)=>{
       return res.send(pet);
     })
   })
+})
+
+//returns 404 for requests against the root
+app.use('/',(req,res)=>{
+  res.sendStatus(404);
 })
 
 app.listen(port, ()=>{
